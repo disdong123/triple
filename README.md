@@ -36,7 +36,7 @@ docker-compose up --build
 ## 테스트
 환변변수는 .env.test 에 작성됩니다.
 
-DB 에 의존하는 테스트가 있으므로 초기 테이블을 생성해야합니다.
+DB 에 의존하는 테스트가 있으므로 먼저 테이블을 생성해야합니다.
 ```
 npm run mysql:table:test
 ```
@@ -62,7 +62,7 @@ npm run test:e2e
 # uri
 http://localhost:3000/events
 
-# body
+# body - add
 {
     "type": "REVIEW",
     "action": "ADD",
@@ -76,6 +76,32 @@ http://localhost:3000/events
     "userId": "52a21165-1de2-4703-aa87-a06ed41cec69",
     "placeId": "0d9b0c6c-3df6-48e4-9fba-6708e2c35a51"
 }
+
+# body - modify
+{
+    "type": "REVIEW",
+    "action": "MOD",
+    "reviewId": "1adc1726-7041-4f86-88d5-4bb7f31665b3",
+    "content": "안녕?",
+    "attachedPhotoIds": [
+        "c1029296-1ce0-49bf-9fac-6476820181fb",
+        "dd77cefc-7ddc-4cf5-a61c-5a09b4e01fb9"
+    ],
+    "userId": "52a21165-1de2-4703-aa87-a06ed41cec69",
+    "placeId": "0d9b0c6c-3df6-48e4-9fba-6708e2c35a51"
+}
+
+# body - delete
+{
+    "type": "REVIEW",
+    "action": "DELETE",
+    "reviewId": "1adc1726-7041-4f86-88d5-4bb7f31665b3",
+    "content": "",
+    "attachedPhotoIds": [],
+    "userId": "52a21165-1de2-4703-aa87-a06ed41cec69",
+    "placeId": "0d9b0c6c-3df6-48e4-9fba-6708e2c35a51"
+}
+
 ```
 
 2. 유저가 작성한 review 에 대한 총 point 를 조회합니다.
