@@ -10,6 +10,9 @@ import * as dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import { ResponseError } from '@src/common/filter/dto/custom-response';
 
+/**
+ * HttpException 관련 예외를 잡습니다.
+ */
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger: Logger = new Logger(this.constructor.name);

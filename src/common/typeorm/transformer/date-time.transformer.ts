@@ -2,7 +2,7 @@ import * as dayjs from 'dayjs';
 import { DeleteResult, FindOperator, UpdateResult } from 'typeorm';
 
 /**
- *
+ * dayjs 와 DateTime 을 변환합니다.
  */
 export const DateTimeTransformer = {
   to(time: dayjs.Dayjs | FindOperator<any>): string | FindOperator<any> {

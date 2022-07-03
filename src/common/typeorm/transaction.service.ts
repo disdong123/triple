@@ -2,8 +2,7 @@ import { Connection } from 'typeorm';
 import { Injectable, Logger } from '@nestjs/common';
 
 /**
- * Todo.
- *  More AOP. decorator etc...
+ * QueryRunner 를 사용하는 트랜잭션을 관리합니다.
  */
 @Injectable()
 export class TransactionService {
@@ -11,8 +10,8 @@ export class TransactionService {
 
   /**
    * transaction 으로 queryRunner 를 이용할 때 사용할 수 있습니다.
-   * @param cb
-   * @param logger
+   * @param cb 실제로 수행되는 로직입니다.
+   * @param logger 로거
    */
   async transactionCB<T>(cb: Function, logger: Logger): Promise<T> {
     const runner = this.connection.createQueryRunner();

@@ -1,5 +1,5 @@
 /**
- *
+ * point type
  */
 export enum PointTypeEnum {
   CONTENT = 'CONTENT',

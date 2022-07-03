@@ -1,5 +1,5 @@
-import { EventTypeEnum } from '@src/module/review/enums/event-type.enum';
-import { EventActionEnum } from '@src/module/review/enums/event-action.enum';
+import { EventTypeEnum } from '@src/module/event/enums/event-type.enum';
+import { EventActionEnum } from '@src/module/event/enums/event-action.enum';
 import { IsEnum, IsNotEmpty, IsString, IsUUID, Length } from 'class-validator';
 
 /**

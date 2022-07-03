@@ -1,7 +1,7 @@
 import { Body, Controller, Logger, Post } from '@nestjs/common';
-import { EventTypeEnum } from '@src/module/review/enums/event-type.enum';
+import { EventTypeEnum } from '@src/module/event/enums/event-type.enum';
 import { ReviewResponse } from '@src/module/review/dto/review.response';
-import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { EventBody } from '@src/module/event/dto/event.body';
 import { EventUtil } from '@src/module/event/event.util';
 import { ReviewHelper } from '@src/module/review/review.helper';

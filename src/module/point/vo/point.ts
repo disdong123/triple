@@ -2,7 +2,7 @@ import { PointTypeEnum } from '@src/module/point/enums/point-type.enum';
 import { ReviewEntity } from '@src/module/review/entities/review.entity';
 
 /**
- *
+ * 포인트 객체입니다. 포인트 유형과 증감할 포인트를 갖습니다.
  */
 export class Point {
   constructor(

@@ -9,6 +9,9 @@ import * as dayjs from 'dayjs';
 import { Request, Response } from 'express';
 import { ResponseError } from '@src/common/filter/dto/custom-response';
 
+/**
+ * 잡히지 않은 예외를 잡습니다.
+ */
 @Catch()
 export class AllExceptionFilter implements ExceptionFilter {
   private readonly logger: Logger = new Logger(this.constructor.name);

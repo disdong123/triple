@@ -49,13 +49,13 @@ export class ReviewService {
       attachedPhotoIds: ${JSON.stringify(attachedPhotoIds)},
     )`);
 
-    // 1. 이미 존재하는 reviewId, photoId 인지 확인합니다.
+    // 이미 존재하는 reviewId, photoId 인지 확인합니다.
     await Promise.all([
       this.checkReviewById(reviewId),
       this.photoService.checkPhotoByIds(attachedPhotoIds),
     ]);
 
-    // 2. bonus 포인트를 위해 리뷰가 이미 있는지 확인합니다.
+    // bonus 포인트를 위해 리뷰가 이미 있는지 확인합니다.
     const reviewWithPlaceId = await this.reviewRepository.findByPlaceId(
       placeId,
     );
@@ -64,7 +64,7 @@ export class ReviewService {
       `reviewWithPlaceId: ${JSON.stringify(reviewWithPlaceId)}`,
     );
 
-    // 3. photo instance 를 생성합니다.
+    // photo instance 를 생성합니다.
     const photoInstances = this.photoRepository.entityManager.create(
       PhotoEntity,
       attachedPhotoIds.map((id) => {
@@ -78,7 +78,7 @@ export class ReviewService {
 
     this.logger.debug(`photoInstances: ${JSON.stringify(photoInstances)}`);
 
-    // 4. pointLog instance 를 생성합니다.
+    // pointLog instance 를 생성합니다.
     const pointLogInstances = this.pointLogRepository.createPointInstances(
       userId,
       reviewId,
@@ -133,10 +133,10 @@ export class ReviewService {
       attachedPhotoIds: ${JSON.stringify(attachedPhotoIds)},
     )`);
 
-    // 1. 삭제되지 않은 photo 는 업데이트됩니다. 삭제된 photo 는 modify 를 진행할 수 없습니다.
+    // 삭제되지 않은 photo 는 업데이트됩니다. 삭제된 photo 는 modify 를 진행할 수 없습니다.
     await this.photoService.checkDeletedPhotoByIds(attachedPhotoIds);
 
-    // 2. 작성한 리뷰를 찾습니다.
+    // 작성한 리뷰를 찾습니다.
     const reviewEntity = await this.findByReviewAndPlaceAndUserId(
       reviewId,
       placeId,
@@ -146,19 +146,19 @@ export class ReviewService {
     const prevContent = reviewEntity.content;
     const prevPhotos = reviewEntity.getUsedPhoto();
 
-    // 3. content 를 수정합니다.
+    // content 를 수정합니다.
     reviewEntity.content = content;
 
-    // 4. photo 를 수정합니다.
-    const { newIds, deleteIds, updateIds } =
+    // photo 를 수정합니다.
+    const { newIds, deleteIds } =
       reviewEntity.classifyPhotoIds(attachedPhotoIds);
 
-    // 4-1. 기존에 등록된 photo 를 삭제합니다.
+    // 기존에 등록된 photo 를 삭제합니다.
     deleteIds.map(
       (id) => (reviewEntity.photos.find((p) => p.id === id).isDeleted = true),
     );
 
-    // 4-2. 새로 등록된 photo 를 생성합니다. (updateIds 는 기존에 등록된 id 입니다. 지금은 굳이 함께 save 하지 않습니다.)
+    // 새로 등록된 photo 를 생성합니다. (updateIds 는 기존에 등록된 id 입니다. 지금은 굳이 함께 save 하지 않습니다.)
     const newPhotoInstance = [...newIds].map((id) =>
       this.photoRepository.entityManager.create(PhotoEntity, {
         id,
@@ -169,7 +169,7 @@ export class ReviewService {
 
     reviewEntity.photos = [...reviewEntity.photos, ...newPhotoInstance];
 
-    // 4. 포인트를 저장합니다. attachedPhotoIds 가 하나도 없으면 리뷰에 대한 모든 사진이 삭제됩니다.
+    // 포인트를 저장합니다. attachedPhotoIds 가 하나도 없으면 리뷰에 대한 모든 사진이 삭제됩니다.
     const newPointLogInstances = this.pointLogRepository.createPointInstances(
       userId,
       reviewId,
@@ -228,7 +228,7 @@ export class ReviewService {
     userId: string,
     placeId: string,
   ): Promise<boolean> {
-    // 1. 작성한 리뷰를 찾습니다.
+    // 작성한 리뷰를 찾습니다.
     const reviewEntity = await this.findByReviewAndPlaceAndUserId(
       reviewId,
       placeId,
@@ -240,7 +240,7 @@ export class ReviewService {
         const reviewRepository = new ReviewRepository(runner.manager);
         const photoRepository = new PhotoRepository(runner.manager);
 
-        // 2. reviewEntity 를 삭제합니다.
+        // reviewEntity 를 삭제합니다.
         reviewEntity.delete();
 
         await photoRepository.entityManager.save(
@@ -289,7 +289,7 @@ export class ReviewService {
     placeId: string,
     userId: string,
   ): Promise<ReviewEntity> {
-    // 1. 작성한 리뷰를 찾습니다.
+    // 작성한 리뷰를 찾습니다.
     const reviewEntity =
       await this.reviewRepository.findByReviewAndPlaceAndUserId(
         reviewId,

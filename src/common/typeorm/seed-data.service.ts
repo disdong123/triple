@@ -1,8 +1,8 @@
-import { Connection, EntityManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { InjectEntityManager } from '@nestjs/typeorm';
 
 /**
- * 테스트용 데이터입니다.
+ * 테스트용 데이터입니다. 실제 로직에 사용되지 않습니다.
  */
 export class DataService {
   constructor(

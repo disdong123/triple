@@ -28,7 +28,6 @@ describe('Review (e2e)', () => {
     });
 
     it('기존 사진은 모두 삭제, 새로운 사진을 넣습니다. content 는 빈 배열을 넣습니다.', async () => {
-      // 3. 수정 잘 되는지 (기존꺼 전체삭제, 전부 새걸로, 글 삭제)
       const data1 = {
         type: 'REVIEW',
         action: 'ADD',

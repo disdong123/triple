@@ -11,7 +11,7 @@ import { PointLogResponse } from '@src/module/point/dto/point-log.response';
 import { PhotoResponse } from '@src/module/photo/dto/photo.response';
 
 /**
- *
+ * review 응답값입니다.
  */
 export class ReviewResponse {
   @IsUUID('all')

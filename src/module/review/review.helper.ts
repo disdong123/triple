@@ -1,5 +1,5 @@
 import { Controller, Injectable } from '@nestjs/common';
-import { EventActionEnum } from '@src/module/review/enums/event-action.enum';
+import { EventActionEnum } from '@src/module/event/enums/event-action.enum';
 import { ReviewService } from '@src/module/review/review.service';
 import { EventBody } from '@src/module/event/dto/event.body';
 import { ReviewResponse } from '@src/module/review/dto/review.response';
