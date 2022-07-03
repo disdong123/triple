@@ -28,11 +28,11 @@ export class ReviewService {
 
   /**
    * review 를 생성합니다.
-   * @param reviewId
-   * @param userId
-   * @param placeId
-   * @param content
-   * @param attachedPhotoIds
+   * @param reviewId 리뷰 ID
+   * @param userId 유저 ID
+   * @param placeId 장소 ID
+   * @param content 리뷰내용
+   * @param attachedPhotoIds 사진 ID[]
    */
   async add(
     reviewId: string,
@@ -112,11 +112,11 @@ export class ReviewService {
 
   /**
    * review 를 수정합니다.
-   * @param reviewId
-   * @param userId
-   * @param placeId
-   * @param content
-   * @param attachedPhotoIds
+   * @param reviewId 리뷰 ID
+   * @param userId 유저 ID
+   * @param placeId 장소 ID
+   * @param content 리뷰내용
+   * @param attachedPhotoIds 사진 ID[]
    */
   async modify(
     reviewId: string,
@@ -219,9 +219,9 @@ export class ReviewService {
 
   /**
    * review 를 삭제합니다.
-   * @param reviewId
-   * @param userId
-   * @param placeId
+   * @param reviewId 리뷰 ID
+   * @param userId 유저 ID
+   * @param placeId 장소 ID
    */
   async delete(
     reviewId: string,

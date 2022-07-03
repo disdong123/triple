@@ -5,8 +5,7 @@ MAINTAINER cola
 # 만약 커스텀하게 설정하고 싶은 설정이 있다면 아래 파일을 만들어야 합니다.
 ADD ./mysql/configs/my.cnf /etc/mysql/my.cnf
 
-# debian 한글설정
-# https://hanryang1125.tistory.com/34
+# 한글설정
 RUN apt-get update && apt-get install -y locales git && \
     localedef -f UTF-8 -i ko_KR ko_KR.UTF-8
 
@@ -26,5 +25,3 @@ EXPOSE 4406
 
 #
 CMD ["mysqld"]
-
-# select * from ex.user;

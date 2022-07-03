@@ -9,6 +9,7 @@ import { PointLogRepository } from '@src/module/point/repositories/point-log.rep
 import { PhotoEntity } from '@src/module/photo/entities/photo.entity';
 import { PhotoRepository } from '@src/module/photo/repositories/photo.repository';
 import { PhotoModule } from '@src/module/photo/photo.module';
+import { ReviewHelper } from '@src/module/review/review.helper';
 
 @Module({
   imports: [
@@ -19,12 +20,13 @@ import { PhotoModule } from '@src/module/photo/photo.module';
     PhotoModule,
   ],
   providers: [
+    ReviewHelper,
     ReviewService,
     TransactionService,
     ReviewRepository,
     PointLogRepository,
     PhotoRepository,
   ],
-  exports: [ReviewService],
+  exports: [ReviewService, ReviewHelper],
 })
 export class ReviewModule {}

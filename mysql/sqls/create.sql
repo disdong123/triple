@@ -63,6 +63,8 @@ create table if not exists photo
     user_id    varchar(255)         not null comment '리뷰 작성자 ID',
     review_id  varchar(255)         not null comment '리뷰 ID',
     is_deleted tinyint(1) default 0 not null,
+    created_at datetime   default CURRENT_TIMESTAMP not null comment '등록일시',
+    updated_at datetime   default CURRENT_TIMESTAMP not null comment '수정일시',
     constraint FK_809dc43491aa27a555fe9a2247c
     foreign key (review_id) references review (id),
     constraint FK_c8c60110b38af9f778106552c39

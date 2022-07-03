@@ -1,11 +1,18 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  BeforeInsert,
+  BeforeUpdate,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+} from 'typeorm';
 import { UserEntity } from '@src/module/user/entities/user.entity';
 import { ReviewEntity } from '@src/module/review/entities/review.entity';
-import { plainToClass } from 'class-transformer';
-import { IsUUID } from 'class-validator';
-import { PointLogResponse } from '@src/module/point/dto/point-log.response';
+import { plainToClass, Type } from 'class-transformer';
 import { PhotoResponse } from '@src/module/photo/dto/photo.response';
-import { UserReviewPointResponse } from '@src/module/user/dto/user-review-point.response';
+import * as dayjs from 'dayjs';
+import { DateTimeTransformer } from '@src/common/typeorm/transformer/date-time.transformer';
 
 @Entity('photo')
 export class PhotoEntity {
@@ -43,6 +50,27 @@ export class PhotoEntity {
   })
   isDeleted: boolean;
 
+  @Column({
+    comment: '등록일시',
+    type: 'datetime',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: false,
+    transformer: DateTimeTransformer,
+  })
+  @Type(() => dayjs)
+  createdAt: dayjs.Dayjs;
+
+  @Column({
+    comment: '수정일시',
+    name: 'updated_at',
+    type: 'datetime',
+    default: () => 'CURRENT_TIMESTAMP',
+    nullable: false,
+    transformer: DateTimeTransformer,
+  })
+  @Type(() => dayjs)
+  updatedAt: dayjs.Dayjs;
+
   @ManyToOne(() => UserEntity, (user) => user.id)
   @JoinColumn({ name: 'user_id' })
   user: UserEntity;
@@ -50,6 +78,17 @@ export class PhotoEntity {
   @ManyToOne(() => ReviewEntity, (review) => review)
   @JoinColumn({ name: 'review_id' })
   review: ReviewEntity;
+
+  @BeforeInsert()
+  protected beforeInsert(): void {
+    this.createdAt = dayjs();
+    this.updatedAt = dayjs();
+  }
+
+  @BeforeUpdate()
+  protected beforeUpdate(): void {
+    this.updatedAt = dayjs();
+  }
 
   /**
    * 새 인스턴스를 리턴합니다.

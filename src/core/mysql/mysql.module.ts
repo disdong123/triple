@@ -40,10 +40,9 @@ import { DataService } from '@src/common/typeorm/seed-data.service';
           database: mysqlName,
           logging:
             configService.get<string>('APP_ENV') === 'test'
-              ? ['query', 'error']
-              : ['query', 'log', 'info', 'error'],
-          // migrationsTableName: 'migration',
-          // migrations: [__dirname + '/migrations/*.js'],
+              ? ['error']
+              : // ? ['query', 'error']
+                ['query', 'log', 'info', 'error'],
         };
       },
     }),

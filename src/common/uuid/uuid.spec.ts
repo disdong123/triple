@@ -1,11 +1,11 @@
 import { randomUUID } from 'crypto';
 
-it('', () => {
+it('uuid 생성', () => {
   const uuid = [];
   for (let i = 0; i < 10; i++) {
     uuid.push(randomUUID());
   }
-  console.log(uuid);
+  // console.log(uuid);
 });
 
 // [
