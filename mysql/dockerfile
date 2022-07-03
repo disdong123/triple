@@ -1,0 +1,30 @@
+FROM --platform=linux/amd64 mysql:8
+
+MAINTAINER cola
+
+# 만약 커스텀하게 설정하고 싶은 설정이 있다면 아래 파일을 만들어야 합니다.
+ADD ./mysql/configs/my.cnf /etc/mysql/my.cnf
+
+# debian 한글설정
+# https://hanryang1125.tistory.com/34
+RUN apt-get update && apt-get install -y locales git && \
+    localedef -f UTF-8 -i ko_KR ko_KR.UTF-8
+
+ENV LANG=ko_KR.UTF-8 \
+    LANGUAGE=ko_KR.UTF-8 \
+    LC_ALL=ko_KR.UTF-8 \
+    PYTHONIOENCODING=utf-8
+
+
+ADD ./mysql/sqls /docker-entrypoint-initdb.d
+
+# permission denied 에러 해결
+RUN chmod -R 775 /docker-entrypoint-initdb.d
+
+
+EXPOSE 4406
+
+#
+CMD ["mysqld"]
+
+# select * from ex.user;

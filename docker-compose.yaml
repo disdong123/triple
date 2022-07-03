@@ -1,0 +1,39 @@
+services:
+  mysql:
+#    platform: linux/x86_64
+    container_name: mysql
+    build:
+      context: ./
+      dockerfile: mysql/dockerfile
+    cap_add:
+      - SYS_NICE
+    environment:
+      MYSQL_DATABASE: 'ex'
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+      TZ: 'Asia/Seoul'
+    ports:
+      - '3308:3306'
+    # Todo. 편의를 위해 설정하지 않습니다.
+#    volumes:
+#      - ./mysql/mysql_data:/var/lib/mysql
+#      - ./mysql/sqls/:/docker-entrypoint-initdb.d/
+    networks:
+      - server_test
+
+  server:
+    container_name: server
+    build:
+      context: ./
+      dockerfile: dockerfile-local
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./src:/app/src
+    env_file:
+      - ./.env.docker
+    networks:
+      - server_test
+
+networks:
+  server_test:
+    driver: bridge
